@@ -49,10 +49,8 @@ namespace HW_7v2
         /// <returns></returns>
         public string Print()
         {
-            //return $"{this.Id,15} {this.RecTime,15} {this.FIO,15} " +
-            //    $"{this.Age,15} {this.Height,15} {this.Bday,15} {this.POB,15}";
-            return $"{Id,15} {RecTime,15} {FIO,30} " +
-               $"{Age,10} {Height,10} {Bday,15} {POB,15}";
+            return $"{Id,-5} {RecTime,-20} {FIO,-40} " +
+               $"{Age,-10} {Height,-10} {Bday,-25} {POB,-15}";
         }
     }
 }

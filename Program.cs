@@ -17,7 +17,7 @@ namespace HW_7v2
 
             if (File.Exists(path) == false)
             {
-                using (FileStream fs = File.Create(path));
+                using (FileStream fs = File.Create(path)) ;
             }
 
             Repository rep = new Repository(path);
@@ -47,7 +47,9 @@ namespace HW_7v2
                     case "4":
                         Console.WriteLine("Введите ID работника");
                         int getId = Convert.ToInt32(Console.ReadLine());
-                        rep.GetWorkerById(getId).Print();
+                        Console.WriteLine($"{"ID",-5} {"Время записи",-20} {"ФИО",-40} {"Возраст",-10} {"Рост",-10}" +
+    $"{"Дата рождения",-25} {"Место рождения",-15}");
+                        Console.WriteLine(rep.GetWorkerById(getId).Print());
                         break;
                     case "5":
                         Console.WriteLine("Введите первую дату");

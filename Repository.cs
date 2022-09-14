@@ -27,11 +27,11 @@ namespace HW_7v2
         /// </summary>
         int index;
 
-        /// <summary>
-        /// Загаловки таблицы
-        /// </summary>
-        string[] titles = {"ID", "Время записи", "ФИО", "Возраст", "Рост", "Дата рождения", "место рождения"};
-
+        ///// <summary>
+        ///// Загаловки таблицы
+        ///// </summary>
+        //public string[] titles = {"ID", "Время записи", "ФИО", "Возраст", "Рост", "Дата рождения", "место рождения"};
+        
         /// <summary>
         /// Конструктор позволяющий присвоить путь файлу
         /// </summary>
@@ -40,7 +40,7 @@ namespace HW_7v2
         {
             this.path = Path;
             this.index = 0;
-            this.titles = new string[7];
+            //this.titles = new string[7];
             this.workers = new Worker[2];
         }
 
@@ -209,8 +209,8 @@ namespace HW_7v2
         /// </summary>
         public void PrintDbToConsole()
         {
-            Console.WriteLine($"{titles[0],15} {titles[1],15} {titles[2],30} {titles[3],10} {titles[4],10}" +
-                $"{titles[5],15} {titles[6],15}");
+            Console.WriteLine($"{"ID",-5} {"Время записи",-20} {"ФИО",-40} {"Возраст",-10} {"Рост",-10}" +
+                $"{"Дата рождения",-25} {"Место рождения",-15}");
             for (int i = 0; i < index; i++)
             {
                 Console.WriteLine(this.workers[i].Print());
