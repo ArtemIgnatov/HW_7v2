@@ -14,9 +14,10 @@ namespace HW_7v2
             string path = @"artem.csv";
 
             //Проверяем на наличие файла, в протвном случае создаем файл
+
             if (File.Exists(path) == false)
             {
-                File.Create(path);
+                using (FileStream fs = File.Create(path));
             }
 
             Repository rep = new Repository(path);
@@ -46,7 +47,7 @@ namespace HW_7v2
                     case "4":
                         Console.WriteLine("Введите ID работника");
                         int getId = Convert.ToInt32(Console.ReadLine());
-                        rep.GetWorkerById(getId);
+                        rep.GetWorkerById(getId).Print();
                         break;
                     case "5":
                         Console.WriteLine("Введите первую дату");

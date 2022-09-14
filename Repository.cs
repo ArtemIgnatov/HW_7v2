@@ -209,8 +209,8 @@ namespace HW_7v2
         /// </summary>
         public void PrintDbToConsole()
         {
-            Console.WriteLine($"{this.titles[0],15} {this.titles[1],15} {this.titles[2],15} {this.titles[3],15} {this.titles[4],15}" +
-                $"{this.titles[5],15} {this.titles[6],15}");
+            Console.WriteLine($"{titles[0],15} {titles[1],15} {titles[2],30} {titles[3],10} {titles[4],10}" +
+                $"{titles[5],15} {titles[6],15}");
             for (int i = 0; i < index; i++)
             {
                 Console.WriteLine(this.workers[i].Print());
