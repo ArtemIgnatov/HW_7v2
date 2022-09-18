@@ -40,9 +40,7 @@ namespace HW_7v2
                         rep.AddWorker();
                         break;
                     case "3":
-                        Console.WriteLine("Введите ID удаляемого работника");
-                        int delId = Convert.ToInt32(Console.ReadLine());
-                        rep.DeleteWorker(delId);
+                        rep.DelWorker(path);
                         break;
                     case "4":
                         Console.WriteLine("Введите ID работника");
@@ -57,7 +55,6 @@ namespace HW_7v2
                         Console.WriteLine("Введите вторую дату");
                         DateTime date2 = Convert.ToDateTime(Console.ReadLine());
                         rep.GetWorkersBetweenTwoDates(date1, date2);
-                        rep.PrintDbToConsole();
                         break;
                     case "6":
                         goto end; //переходим на метку завершающую программу

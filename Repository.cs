@@ -115,33 +115,6 @@ namespace HW_7v2
             return workerById;  
         }
 
-        /// <summary>
-        /// Метод для удаления работника по его Id
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteWorker(int id)
-        {
-            GetAllWorkers();///Выгружаем всех работников
-            using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
-            {
-                for (int i = 0; i < workers.Length; i++)
-                {
-                    if (workers[i].Id != id)///проверяем id на совпадение
-                    {
-                        string note = string.Empty;
-                        note += $"{workers[i].Id}#";
-                        note += $"{workers[i].RecTime}#";
-                        note += $"{workers[i].FIO}#";
-                        note += $"{workers[i].Age}#";
-                        note += $"{workers[i].Height}#";
-                        note += $"{workers[i].Bday}#";
-                        note += $"{workers[i].POB}#";
-                        sw.WriteLine(note);
-                    }
-                }
-            }
-
-        }
 
         /// <summary>
         /// Метод для записи ноаого работника в файл
@@ -194,11 +167,27 @@ namespace HW_7v2
         /// <param name="dateFrom"></param>
         /// <param name="dateTo"></param>
         /// <returns></returns>
-        public Worker[] GetWorkersBetweenTwoDates(DateTime dateFrom, DateTime dateTo)
+        public void GetWorkersBetweenTwoDates(DateTime dateFrom, DateTime dateTo)
         {
-            GetAllWorkers();
-            workers.OrderBy(w => w.Equals(dateFrom)).ThenBy(w => w.Equals(dateTo)).ToArray();
-            return workers.ToArray();
+            using (StreamReader sr = new StreamReader(this.path))
+            {
+                Console.WriteLine("Вывод между двумя датами");
+                int i = 1;
+
+                while (!sr.EndOfStream)
+                {
+                    string[] lines = sr.ReadLine().Split('#');
+                    if (lines[0] == "") { continue; }
+                    if (Convert.ToDateTime(lines[i]) > dateFrom && Convert.ToDateTime(lines[i]) < dateTo)
+                    {
+                        foreach (var line in lines)
+                        {
+                            Console.Write($"{line}#");
+                        }
+                        Console.Write("\n");
+                    }
+                }
+            }
             // здесь происходит чтение из файла
             // фильтрация нужных записей
             // и возврат массива считанных экземпляров
@@ -222,6 +211,54 @@ namespace HW_7v2
         /// Метод позволяющий увидеть общее число сотрудников
         /// </summary>
         public int Count { get { return this.index; } }
+
+        /// <summary>
+        /// Метод для удаления работника по ID
+        /// </summary>
+        /// <param name="Path"></param>
+        public void DelWorker(string Path)
+        {
+            Console.WriteLine("Введите Id работника для удаления");
+            int id = Convert.ToInt32(Console.ReadLine());
+            string[] arr = new string[index]; //массив в который будем писать все данные из справочник
+            string[] temp = new string[index]; //массив в который перепишем все данные, кроме удаляемого работника
+            using(StreamReader sr = new StreamReader(Path))
+            {
+                //вводим индексы для правильного заполнения после удаления
+                int j = 0;
+                int i = 0;
+                int k = 0;
+
+                while(!sr.EndOfStream)
+                {
+                    arr = sr.ReadLine().Split('#');
+
+                    if (arr[i] != "" && Convert.ToInt32(arr[i]) != id)
+                    {
+                        temp[k] = String.Format("{0}#{1}#{2}#{3}#{4}#{5}#{6}",
+                            this.workers[j].Id,
+                            this.workers[j].RecTime,
+                            this.workers[j].FIO,
+                            this.workers[j].Age,
+                            this.workers[j].Height,
+                            this.workers[j].Bday,
+                            this.workers[j].POB
+                            );
+                        j++;
+                        k++;              
+                    }
+                    else
+                    {
+                        j++;
+                        continue;
+                    }
+                }
+                //Load(); хз зачем
+
+            }
+            File.WriteAllLines(Path, temp);
+        
+        }
     }
     
 }
